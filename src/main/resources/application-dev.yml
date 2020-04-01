@@ -1,0 +1,65 @@
+server:
+    port: 15080
+logging:
+    level:
+        ROOT: DEBUG
+        #io.github.jhipster: DEBUG
+        #com.ideal.gateway: DEBUG
+
+eureka:
+    instance:
+        prefer-ip-address: true
+        ip-address: 127.0.0.1
+    client:
+        service-url:
+            defaultZone: http://localhost:15761/eureka/
+#            defaultZone: http://admin:${jhipster.registry.password}@127.0.0.1:15761/eureka/
+
+spring:
+    profiles:
+        active: dev
+        include:
+            - swagger
+            # Uncomment to activate TLS for the dev profile
+            #- tls
+    devtools:
+        restart:
+            enabled: true
+        livereload:
+            enabled: false # we use Webpack dev server + BrowserSync for livereload
+    jackson:
+        serialization:
+            indent-output: true
+#    data:
+#        mongodb:
+#            uri: mongodb://10.0.0.21:28018
+#            database: ideal-new-gateway
+#        elasticsearch:
+#            properties:
+#                path:
+#                    home: target/elasticsearch
+#        jest:
+#            uri: http://10.0.0.21:9201
+#    redis:
+#        host: 10.0.0.21
+#        port: 6379
+#    mail:
+#        host: localhost
+#        port: 25
+#        username:
+#        password:
+#    messages:
+#        cache-duration: PT1S # 1 second, see the ISO 8601 standard
+#    thymeleaf:
+#        cache: false
+#    sleuth:
+#        sampler:
+#            probability: 1 # report 100% of traces
+#    zipkin: # Use the "zipkin" Maven profile to have the Spring Cloud Zipkin dependencies
+#        base-url: http://localhost:9411
+#        enabled: false
+#        locator:
+#            discovery:
+#                enabled: true
+
+

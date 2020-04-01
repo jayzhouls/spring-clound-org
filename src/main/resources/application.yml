@@ -3,7 +3,69 @@ spring:
     name: spring-cloud-zuul
 eureka:
   client:
-    service-url:
-      defaultZone: http://localhost:15761/eureka/
-server:
-  port: 15080
+    enabled: true
+    healthcheck:
+      enabled: true
+    fetch-registry: true
+    register-with-eureka: true
+    instance-info-replication-interval-seconds: 10
+    registry-fetch-interval-seconds: 10
+  instance:
+    ##服务名，默认取 spring.application.name 配置值，如果没有则为 unknown  优先级高于spring.application.name
+    appname: spring-cloud-zuul
+    # 实例ID
+    instanceId: spring-cloud-zuul:${spring.application.instance-id:${random.value}}
+    # 服务续约（心跳）频率，单位：秒，缺省30
+    lease-renewal-interval-in-seconds: 5
+    # 服务失效时间，失效的服务将被剔除。单位：秒，默认：90
+    lease-expiration-duration-in-seconds: 10
+    status-page-url-path: ${management.endpoints.web.base-path}/info
+    health-check-url-path: ${management.endpoints.web.base-path}/health
+    metadata-map:
+      zone: primary # This is needed for the load balancer
+      profile: ${spring.profiles.active}
+      version: ${info.project.version:}
+      git-version: ${git.commit.id.describe:}
+      git-commit: ${git.commit.id.abbrev:}
+      git-branch: ${git.branch:}
+ribbon:
+  #zuul开启负载均衡 路由其他客户端建立连接所用的时间 这里超过30秒java.net.SocketException: connetct time out 的异常。
+  connection-timeout: 5000
+  #建议设置超时时间，以免因为等待时间过长造成请求处理失败（一）
+  #zuul开启负载均衡 路由其他客户端 建立连接后从服务器读取到可用资源所用的时间
+  #超过5秒会 并抛出Java.net.SocketException: read time out的异常
+  ReadTimeout: 30000
+  #Ribbon允许最大连接数，即所有后端微服务实例请求并发数之和的最大值。
+  MaxTotalConnections: 500
+  #单个后端微服务实例能接收的最大请求并发数
+  MaxConnectionsPerHost: 500
+  eureka:
+    enabled: true
+# See http://cloud.spring.io/spring-cloud-netflix/spring-cloud-netflix.html
+zuul: # those values must be configured depending on the application specific needs
+  ##会过滤客户端请求中的和该配置项匹配的headers Cookie,Set-Cookie不会传递给下游服务
+  #什么都不设置代表不过滤任何信息，但 zuul.sensitiveHeaders=  一定要附上
+  #还有一种情况就是客户端带了Cookie，在ZUUL的Filter中又addZuulRequestHeader("Cookie", "new"),
+  #那么客户端的Cookie将会被覆盖，此时不需要sensitiveHeaders。
+  #
+  #如果设置了sensitiveHeaders: Cookie，那么Filter中设置的Cookie依然不会被过滤
+  sensitive-headers: Cookie,Set-Cookie
+  host:
+    #http客户端连接池最大连接，默认是200
+    max-total-connections: 5000
+    #每个route可用的最大连接数，默认值是20
+    max-per-route-connections: 10000
+    socket-timeout-millis: 60000
+  semaphore:
+    max-semaphores: 500
+  #会过滤服务之间通信附带的headers
+  ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
+#建议设置超时时间，以免因为等待时间过长造成请求处理失败（二）
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 30000
+
