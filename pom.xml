@@ -43,23 +43,23 @@
             <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
         <!--仅修改客户端，就可以实现 refresh 的功能 配置中心有修改会实时刷新 可以监控程序在运行时状态，其中就包括 /actuator/refresh 的功能-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
+        </dependency>-->
         <!--客户端使用配置中心广播通知 消息总线Spring Cloud Bus-->
-        <dependency>
+       <!-- <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-bus</artifactId>
-        </dependency>
+        </dependency>-->
         <!--Spring Cloud Bus消息总线 使用RabbitMQ-->
         <!--Spring Cloud Bus消息总线 使用RabbitMQ  目前常用的有 Kafka 和 RabbitMQ-->
         <!--对config-client进行改造，引入spring-cloud-starter-bus-amqp，同时对spring-boot-starter-parent进行降级，
         从2.1.1.RELEASE到2.0.3.RELEASE，配合Finchley.SR2版本，(否则报错  Endpoint ID 'bus-env' contains invalid characters, please migrate to a valid format-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-stream-binder-rabbit</artifactId>
-        </dependency>
+        </dependency>-->
         <!--网关zuul-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
