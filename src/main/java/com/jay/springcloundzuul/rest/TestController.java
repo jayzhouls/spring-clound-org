@@ -1,4 +1,4 @@
-package com.jay.springcloundorg.rest;
+package com.jay.springcloundzuul.rest;
 
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Value;

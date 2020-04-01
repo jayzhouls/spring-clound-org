@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: spring-cloud-zuul
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:15761/eureka/
+server:
+  port: 15080

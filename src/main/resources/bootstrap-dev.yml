@@ -1,9 +1,0 @@
-###上面这些与 Spring Cloud Config 相关的属性必须配置在 bootstrap.yml 中，config 部分内容才能被正确加载。
-###因为 config 的相关配置会先于 application.yml1，而 bootstrap.yml 的加载也是先于 application.yml1
-spring:
-    cloud:
-        config:
-            uri: http://localhost:15761 # 配置中心的具体地址，即 config-server
-            name: spring-cloud-org # 对应 {application} 部分
-            profile: dev # 对应 {profile} 部分
-            label: master # 对应 {label} 部分，即 Git 的分支。如果配置中心使用的是本地存储，则该参数无用

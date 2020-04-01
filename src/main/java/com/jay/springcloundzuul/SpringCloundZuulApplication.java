@@ -1,17 +1,18 @@
-package com.jay.springcloundorg;
+package com.jay.springcloundzuul;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@EnableFeignClients
+@EnableZuulProxy
 @EnableDiscoveryClient
 @SpringBootApplication
-public class SpringCloundOrgApplication {
+public class SpringCloundZuulApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringCloundOrgApplication.class, args);
+        SpringApplication.run(SpringCloundZuulApplication.class, args);
     }
 
 }
